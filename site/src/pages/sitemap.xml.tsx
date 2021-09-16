@@ -18,10 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   // Insert a url element for each route
   routes.forEach(slug => {
     const url = root.ele('url');
-    url.ele(
-      'loc',
-      process.env.siteUrl || 'https://nicholasgriffin.dev' + slug,
-    );
+    url.ele('loc', process.env.siteUrl || 'https://nicholasgriffin.dev' + slug);
     url.ele('priority', 0.5);
     url.ele('changefreq', 'daily');
   });

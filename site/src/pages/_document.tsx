@@ -39,10 +39,7 @@ export default class MyDocument extends Document {
         <meta name="application-name" content="Nicholas Griffin" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta
-          name="apple-mobile-web-app-title"
-          content="Nicholas Griffin"
-        />
+        <meta name="apple-mobile-web-app-title" content="Nicholas Griffin" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
@@ -89,10 +86,7 @@ export default class MyDocument extends Document {
         <link rel="shortcut icon" href="/favicon.ico" />
 
         <meta name="twitter:card" content="summary" />
-        <meta
-          name="twitter:url"
-          content="https://nicholasgriffin.dev/"
-        />
+        <meta name="twitter:url" content="https://nicholasgriffin.dev/" />
         <meta name="twitter:title" content="Nicholas Griffin" />
         <meta
           name="twitter:description"
@@ -106,10 +100,7 @@ export default class MyDocument extends Document {
           content="A Next.JS app from Nicholas Griffin"
         />
         <meta property="og:site_name" content="Nicholas Griffin" />
-        <meta
-          property="og:url"
-          content="https://nicholasgriffin.dev"
-        />
+        <meta property="og:url" content="https://nicholasgriffin.dev" />
         <meta property="og:image" content="/img/social.jpg" />
         <Head />
         <body>
