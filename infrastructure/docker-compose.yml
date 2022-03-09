@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: 'app-name-postgres'
+    restart: unless-stopped
+    image: 'postgres:13@sha256:acb73bc9b0780632cf1b2e4f475d367a44a7dc0d42524333236a30212eb4748d'
+    ports:
+      # NOTE: To avoid overlapping with any Postgres database run on the host machine,
+      # we bind Postgres to port "15432" instead.
+      - '15432:5432'
+    volumes:
+      - 'pgdata:/var/lib/postgresql/data/'
+    environment:
+      POSTGRES_PASSWORD: postgres
+  nextjs:
+    build: ./
+    ports:
+      - 3000:3000
+
+volumes:
+  pgdata: {}

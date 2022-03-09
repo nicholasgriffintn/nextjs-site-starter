@@ -1,0 +1,33 @@
+name: Project Planning
+description: Create an issue to be used during project planning
+labels:
+  - 'planning'
+  - 'enhancement'
+body:
+  - type: markdown
+    attributes:
+      value: Let's get planning! Please use the inputs below to create your project planning request
+  - type: textarea
+    attributes:
+      label: Describe the enhancement or change that should be completed
+      description: A clear and concise description of what you want and what your use case is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: What version are you planning this feature for?
+      description: 'For example: v1.2.0'
+    validations:
+      required: true
