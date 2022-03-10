@@ -2,9 +2,11 @@ This app was created with this template: https://github.com/nicholasgriffintn/ne
 
 # Next.JS Starter
 
-This is a starter template that I have created to serve as an inital starting point for my side projects that use Next.JS.
+This is a starter template that I have created to serve as an initial starting point for my side projects that use Next.JS.
 
 It includes Next.JS, Prisma, a GraphQL server, Tailwind CSS styling and it's all typed, of course.
+
+[![Latest PR Status](https://github.com/nicholasgriffintn/nextjs-site-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/nicholasgriffintn/nextjs-site-starter/actions/workflows/ci.yml)
 
 ## Get Started
 
