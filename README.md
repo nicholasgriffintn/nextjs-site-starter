@@ -6,6 +6,8 @@ This is a starter template that I have created to serve as an inital starting po
 
 It includes Next.JS, Prisma, a GraphQL server, Tailwind CSS styling and it's all typed, of course.
 
+[![Run automated tests - PR](https://github.com/nicholasgriffintn/nextjs-site-starter/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nicholasgriffintn/nextjs-site-starter/actions/workflows/ci.yml)
+
 ## Get Started
 
 To get started, you first need to copy `.env.example` to `.env`.
