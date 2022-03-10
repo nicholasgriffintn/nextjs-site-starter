@@ -6,6 +6,7 @@ import '../css/tailwind.css';
 
 import { useUrqlClient } from '$src/lib/urql-client';
 import Header from '../components/header';
+import HeaderPromo from '$src/components/headerPromo';
 
 const App = ({ Component, pageProps }: any) => {
 	const urqlClient = useUrqlClient();
@@ -31,6 +32,7 @@ const App = ({ Component, pageProps }: any) => {
 						cardType: 'summary_large_image',
 					}}
 				/>
+				<HeaderPromo />
 				<Header />
 				<Component {...pageProps} />
 			</UrqlProvider>

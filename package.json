@@ -3,11 +3,11 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "next",
+		"dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
 		"build": "next build",
-		"start": "next start --port $PORT",
+		"start": "NEXT_TELEMETRY_DISABLED=1 next start -p ${PORT-3000}",
 		"lint": "next lint",
-		"typecheck": "tsc",
+		"typecheck": "tsc --noEmit",
 		"prisma-client": "prisma generate",
 		"migrate-dev": "prisma migrate dev",
 		"migrate-deploy": "prisma migrate deploy",
@@ -45,7 +45,8 @@
 		}
 	},
 	"lint-staged": {
-		"*.{ts,tsx,json,md,css}": [
+		"*.{ts,tsx,md,css}": [
+			"eslint --cache --fix",
 			"prettier --write"
 		]
 	},
@@ -94,5 +95,13 @@
 		"tailwindcss": "3.0.23",
 		"ts-loader": "9.2.7",
 		"typescript": "4.6.2"
-	}
+	},
+	"engines": {
+		"node": ">=14"
+	},
+	"browserslist": [
+		"defaults",
+		"not IE 11",
+		"maintained node versions"
+	]
 }
