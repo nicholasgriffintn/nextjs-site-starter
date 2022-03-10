@@ -4,5 +4,5 @@ node_modules
 .next
 out/
 .env
-server-dist/
+server-dist
 .eslintcache
