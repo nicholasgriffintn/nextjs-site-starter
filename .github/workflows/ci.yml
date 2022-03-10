@@ -129,6 +129,15 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: 1
     steps:
+      - name: Waiting for the Vercel Deployment
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: waitForVercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 60
+
+      - run: 'echo Deployed to Vercel: ${{steps.waitForVercel.outputs.url}}'
+
       - name: Setup node
         uses: actions/setup-node@v2
         if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
@@ -143,6 +152,14 @@ jobs:
 
       - name: Run dev migration
         run: yarn migrate-dev
+
+      - name: Ensure there are no differences
+        run: git diff --quiet
+
+      - name: Run GraphQL Codegen
+        run: yarn gql-gen
+        env:
+          APP_URL: ${{steps.waitForVercel.outputs.url}}
 
       - name: Ensure there are no differences
         run: git diff --quiet
