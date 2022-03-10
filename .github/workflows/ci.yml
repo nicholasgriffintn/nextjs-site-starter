@@ -147,12 +147,6 @@ jobs:
       - name: Ensure there are no differences
         run: git diff --quiet
 
-      - name: Run GraphQL Codegen
-        run: yarn gql-gen
-
-      - name: Ensure there are no differences
-        run: git diff --quiet
-
   build:
     name: Build the Code
     runs-on: ubuntu-latest
