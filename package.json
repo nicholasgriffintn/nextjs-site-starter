@@ -3,15 +3,16 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "next",
+		"dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
 		"build": "next build",
-		"start": "next start --port $PORT",
+		"start": "NEXT_TELEMETRY_DISABLED=1 next start -p ${PORT-3000}",
 		"lint": "next lint",
-		"typecheck": "tsc",
+		"typecheck": "tsc --noEmit",
+		"test": "echo \"No tests yet! You should add some...\"",
 		"prisma-client": "prisma generate",
 		"migrate-dev": "prisma migrate dev",
 		"migrate-deploy": "prisma migrate deploy",
-		"gql-gen": "graphql-codegen --config graphql-codegen.yml",
+		"gql-gen": "graphql-codegen -r dotenv/config --config graphql-codegen.yml",
 		"prepare": "husky install",
 		"format": "prettier --loglevel warn --write \"**/*.{ts,js,json,jsx,tsx,md,scss}\"",
 		"format:check": "prettier --check \"**/*.{ts,js,json,jsx,tsx,md,scss}\"",
@@ -45,7 +46,10 @@
 		}
 	},
 	"lint-staged": {
-		"*.{ts,tsx,json,md,css}": [
+		"*.{ts,tsx}": [
+			"eslint --cache --fix"
+		],
+		"*.{ts,tsx,md,json,css}": [
 			"prettier --write"
 		]
 	},
@@ -56,6 +60,7 @@
 		"apollo-server-micro": "3.6.3",
 		"class-validator": "0.13.2",
 		"cors": "2.8.5",
+		"dotenv": "^16.0.0",
 		"graphql": "15.3.0",
 		"micro": "9.3.4",
 		"next": "12.1.0",
@@ -94,5 +99,13 @@
 		"tailwindcss": "3.0.23",
 		"ts-loader": "9.2.7",
 		"typescript": "4.6.2"
-	}
+	},
+	"engines": {
+		"node": ">=14"
+	},
+	"browserslist": [
+		"defaults",
+		"not IE 11",
+		"maintained node versions"
+	]
 }

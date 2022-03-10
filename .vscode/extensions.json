@@ -1,0 +1,10 @@
+{
+	"recommendations": [
+		"formulahendry.auto-rename-tag",
+		"mikestead.dotenv",
+		"graphql.vscode-graphql",
+		"esbenp.prettier-vscode",
+		"prisma.prisma",
+		"bradlc.vscode-tailwindcss"
+	]
+}

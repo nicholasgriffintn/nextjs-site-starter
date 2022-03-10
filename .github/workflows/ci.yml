@@ -6,8 +6,8 @@ on:
       - canary
 
 jobs:
-  build:
-    name: Build the Code
+  setup:
+    name: Setup and install deps
     runs-on: ubuntu-latest
     env:
       NEXT_TELEMETRY_DISABLED: 1
@@ -18,25 +18,26 @@ jobs:
         with:
           node-version: 14
 
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 25
-
-      - name: Install Deps
-        run: yarn install --frozen-lockfile --check-files
-      - name: Run Build
-        run: yarn build
-
       - uses: actions/cache@v2
         id: cache-build
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 25
+
+      - name: Install Deps
+        run: yarn install --frozen-lockfile --check-files
+
+      - name: Create .env
+        run: cp .env.example .env
+
   formatting:
     name: Formatting Check
     runs-on: ubuntu-latest
-    needs: build
+    needs: [setup]
     steps:
       - name: Setup node
         uses: actions/setup-node@v2
@@ -53,7 +54,7 @@ jobs:
   typecheck:
     name: Type Checking
     runs-on: ubuntu-latest
-    needs: build
+    needs: [setup]
     steps:
       - name: Setup node
         uses: actions/setup-node@v2
@@ -70,7 +71,7 @@ jobs:
   lint:
     name: Linting Check
     runs-on: ubuntu-latest
-    needs: build
+    needs: [setup]
     steps:
       - name: Setup node
         uses: actions/setup-node@v2
@@ -82,12 +83,13 @@ jobs:
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
+
       - run: yarn lint
 
   testUnit:
     name: Test Units
     runs-on: ubuntu-latest
-    needs: [build, lint]
+    needs: [typecheck, lint, formatting]
     env:
       NEXT_TELEMETRY_DISABLED: 1
       NEXT_TEST_JOB: 1
@@ -105,3 +107,81 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - run: yarn test
+
+  verify:
+    name: Verify GraphQL and Prisma
+    runs-on: ubuntu-latest
+    needs: [testUnit]
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 15432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - name: Waiting for the Vercel Deployment
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: waitForVercel
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 60
+
+      - run: 'echo Deployed to Vercel: ${{steps.waitForVercel.outputs.url}}'
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
+        with:
+          node-version: 14
+
+      - uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
+
+      - name: Run dev migration
+        run: yarn migrate-dev
+
+      - name: Ensure there are no differences
+        run: git diff --quiet
+
+      - name: Run GraphQL Codegen
+        run: yarn gql-gen
+        env:
+          APP_URL: ${{steps.waitForVercel.outputs.url}}
+
+      - name: Ensure there are no differences
+        run: git diff --quiet
+
+  build:
+    name: Build the Code
+    runs-on: ubuntu-latest
+    needs: [verify]
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - name: Setup node
+        uses: actions/setup-node@v2
+        if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
+        with:
+          node-version: 14
+
+      - uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
+
+      - name: Run Build
+        run: yarn build
