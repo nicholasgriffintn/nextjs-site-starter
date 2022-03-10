@@ -8,6 +8,7 @@
 		"start": "NEXT_TELEMETRY_DISABLED=1 next start -p ${PORT-3000}",
 		"lint": "next lint",
 		"typecheck": "tsc --noEmit",
+		"test": "echo \"No tests yet! You should add some...\"",
 		"prisma-client": "prisma generate",
 		"migrate-dev": "prisma migrate dev",
 		"migrate-deploy": "prisma migrate deploy",
