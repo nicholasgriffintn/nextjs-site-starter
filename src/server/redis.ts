@@ -34,12 +34,6 @@ function set<Value>(key: string, value: Value): Promise<'OK'> {
 
 function del(key: string): Promise<string> {
 	return new Promise((resolve) => {
-		// fire and forget on primary, we only care about replica
-		redisClient?.del(key, (err: Error | null) => {
-			if (err) {
-				console.error('Primary delete error', err);
-			}
-		});
 		redisClient.del(key, (err: Error | null, result: number | null) => {
 			if (err) {
 				console.error(`REDIS replicaClient ERROR with .del:`, err);
