@@ -18,6 +18,12 @@ jobs:
         with:
           node-version: 14
 
+      - uses: actions/cache@v2
+        id: cache-build
+        with:
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 25
@@ -27,12 +33,6 @@ jobs:
 
       - name: Create .env
         run: cp .env.example .env
-
-      - uses: actions/cache@v2
-        id: cache-build
-        with:
-          path: ./*
-          key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
   formatting:
     name: Formatting Check
@@ -135,9 +135,11 @@ jobs:
         with:
           node-version: 14
 
-      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        id: cache-build
         with:
-          fetch-depth: 25
+          path: ./*
+          key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
 
       - name: Run dev migration
         run: yarn migrate-dev
@@ -151,12 +153,6 @@ jobs:
       - name: Ensure there are no differences
         run: git diff --quiet
 
-      - uses: actions/cache@v2
-        id: cache-build
-        with:
-          path: ./*
-          key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
-
   build:
     name: Build the Code
     runs-on: ubuntu-latest
@@ -164,11 +160,17 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: 1
     steps:
-      - name: Run Build
-        run: yarn build
+      - name: Setup node
+        uses: actions/setup-node@v2
+        if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
+        with:
+          node-version: 14
 
       - uses: actions/cache@v2
         id: cache-build
         with:
           path: ./*
           key: ${{ github.sha }}-${{ github.run_number }}-${{ github.run_attempt }}
+
+      - name: Run Build
+        run: yarn build
