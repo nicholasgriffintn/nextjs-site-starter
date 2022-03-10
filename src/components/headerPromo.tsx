@@ -32,7 +32,7 @@ export default function HeaderPromo() {
 
 				<div className="w-auto">
 					<a
-						href="https://github.com/nicholasgriffintn/app-name"
+						href="https://github.com/nicholasgriffintn/nextjs-site-starter"
 						target="_blank"
 						rel="noreferrer"
 						className="flex items-center h-8 px-3 text-sm font-medium text-white border border-white rounded-md cursor-pointer"
