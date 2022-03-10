@@ -9,6 +9,9 @@ export default NextAuth({
 	session: {
 		strategy: 'jwt',
 	},
+	pages: {
+		signIn: '/login',
+	},
 	// Configure one or more authentication providers
 	providers: [
 		GithubProvider({
