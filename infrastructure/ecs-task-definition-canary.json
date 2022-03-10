@@ -67,9 +67,7 @@
 	"taskRoleArn": null,
 	"family": "app-name-canary",
 	"pidMode": null,
-	"requiresCompatibilities": [
-		"FARGATE"
-	],
+	"requiresCompatibilities": ["FARGATE"],
 	"networkMode": "awsvpc",
 	"runtimePlatform": {
 		"operatingSystemFamily": "LINUX",

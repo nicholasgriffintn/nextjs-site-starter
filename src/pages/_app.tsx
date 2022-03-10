@@ -5,7 +5,7 @@ import { Provider as UrqlProvider } from 'urql';
 import '../css/tailwind.css';
 
 import { useUrqlClient } from '$src/lib/urql-client';
-import Header from './components/header';
+import Header from '../components/header';
 
 const App = ({ Component, pageProps }: any) => {
 	const urqlClient = useUrqlClient();
