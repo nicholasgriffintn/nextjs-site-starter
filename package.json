@@ -61,7 +61,7 @@
 		"class-validator": "0.13.2",
 		"cors": "2.8.5",
 		"dotenv": "^16.0.0",
-		"graphql": "15.3.0",
+		"graphql": "15.8.0",
 		"ioredis": "^4.28.5",
 		"micro": "9.3.4",
 		"next": "12.1.0",
