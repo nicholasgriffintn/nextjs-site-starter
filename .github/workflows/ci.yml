@@ -13,7 +13,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: 1
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
         with:
           node-version: 14
@@ -40,7 +40,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
@@ -57,7 +57,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
@@ -74,7 +74,7 @@ jobs:
     needs: [setup]
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
@@ -95,7 +95,7 @@ jobs:
       NEXT_TEST_JOB: 1
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
         with:
           node-version: 14
@@ -139,7 +139,7 @@ jobs:
       - run: 'echo Deployed to Vercel: ${{steps.waitForVercel.outputs.url}}'
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
         with:
           node-version: 14
@@ -172,7 +172,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: 1
     steps:
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         if: ${{ steps.docs-change.outputs.docsChange != 'docs only change' }}
         with:
           node-version: 14
