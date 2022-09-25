@@ -4,7 +4,7 @@ services:
   postgres:
     container_name: 'app-name-postgres'
     restart: unless-stopped
-    image: 'postgres:13@sha256:94bbd9a92e24c309af48c695c4d253844b5839148f92428941d55b15629ca3f5'
+    image: 'postgres:14@sha256:b0ee049a2e347f5ec8c64ad225c7edbc88510a9e34450f23c4079a489ce16268'
     ports:
       - '15432:5432'
     volumes:
