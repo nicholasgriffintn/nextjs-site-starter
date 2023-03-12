@@ -130,7 +130,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: 1
     steps:
       - name: Waiting for the Vercel Deployment
-        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
         id: waitForVercel
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
